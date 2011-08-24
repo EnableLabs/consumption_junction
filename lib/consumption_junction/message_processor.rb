@@ -15,14 +15,10 @@ class ConsumptionJunction::MessageProcessor
     puts "[ ConsumptionJunction::MessageProcessor ] BEGIN MessageProcessor#process_message using #{worker_class.to_s} #{message}"
     self.message_count = message_count + 1
     puts "[ ConsumptionJunction::MessageProcessor ] INFO #{to_s}"
-    result = build_worker.process_message(message)
+    result = worker_class.new(message).process_message
     puts "[ ConsumptionJunction::MessageProcessor ] END MessageProcessor#process_message result = #{result} for message = #{message}"
     puts "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-"
     result
-  end
-  
-  def build_worker
-    worker_class.new
   end
   
   def log (message)
